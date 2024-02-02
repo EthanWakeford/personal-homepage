@@ -15,8 +15,8 @@ jobs:
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          FIREBASE_CLI_EXPERIMENTS: webframeworks
           channelId: live
           projectId: wakeford11901
-        env:
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_WAKEFORD11901 }}'
+        env:
+         FIREBASE_CLI_EXPERIMENTS: webframeworks
