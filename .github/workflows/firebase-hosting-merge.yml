@@ -18,5 +18,5 @@ jobs:
           FIREBASE_CLI_EXPERIMENTS: webframeworks
           channelId: live
           projectId: wakeford11901
-        # env:
-          # firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_WAKEFORD11901 }}'
+        env:
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_WAKEFORD11901 }}'
