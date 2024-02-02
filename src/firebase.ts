@@ -16,7 +16,7 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 export const getTestData = async (): Promise<DocumentData[]> => {
-  const testCol = collection(db, 'testCol');
+  const testCol = collection(db, 'myinfo');
 
   const snapshot = await getDocs(testCol);
 

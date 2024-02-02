@@ -3,13 +3,21 @@ import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero';
 import AboutCard from '../components/AboutCard';
 import TextImagecard from '../components/TextImageCard';
+
+import { getTestData } from '../firebase';
+
+const myData = await getTestData();
+
+const about = myData[0].about;
+const bgImage = myData[0].bgimage;
+const headShot = myData[0].headshot;
 ---
 
 <Layout title='' metaDescription='this is my first astro page'>
   <Hero
     welcomeText='Ethan Wakeford'
-    tagline='I code and build websites and sometimes other fun stuff maybe'
-    backgroundImages={['src/assets/placeholders/1280x720.jpg']}
+    tagline={about}
+    backgroundImages={[bgImage]}
     slideTime={5000}
     client:load
   />
@@ -22,7 +30,7 @@ import TextImagecard from '../components/TextImageCard';
     title='title'
     bodyText='blah blah'
     imageAltText='cool picture'
-    imageLink='src/assets/placeholders/1200x800.jpg'
+    imageLink={headShot}
     link='/'
     linkText='click me'
     reversed={false}
