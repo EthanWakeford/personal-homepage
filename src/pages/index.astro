@@ -1,0 +1,30 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero';
+import AboutCard from '../components/AboutCard';
+import TextImagecard from '../components/TextImageCard';
+---
+
+<Layout title='' metaDescription='this is my first astro page'>
+  <Hero
+    welcomeText='Ethan Wakeford'
+    tagline='I code and build websites and sometimes other fun stuff maybe'
+    backgroundImages={['src/assets/placeholders/1280x720.jpg']}
+    slideTime={5000}
+    client:load
+  />
+  <AboutCard
+    aboutTitle='this is where I make a title about some stuff that we do'
+    aboutBody='its super cool'
+    linkText='Click here to find out'
+  />
+  <TextImagecard
+    title='title'
+    bodyText='blah blah'
+    imageAltText='cool picture'
+    imageLink='src/assets/placeholders/1200x800.jpg'
+    link='/'
+    linkText='click me'
+    reversed={false}
+  />
+</Layout>

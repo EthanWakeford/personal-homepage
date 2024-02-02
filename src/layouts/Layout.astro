@@ -1,0 +1,115 @@
+---
+import Header from '../components/Header';
+import Footer from '../components/Footer';
+
+interface Props {
+  title: string;
+  metaDescription: string;
+}
+
+const { title, metaDescription } = Astro.props;
+
+const websiteName = 'Ethan Wakeford';
+const phone = '918-298-6303';
+// const address = '';
+const email = 'ethanwakeford@gmail.com';
+const navs = [
+  { link: '/projects', name: 'PROJECTS' },
+  { link: '/websites', name: 'WEBSITES' },
+];
+const socials = [
+  { link: 'https://www.instagram.com/', type: 'instagram' },
+  { link: 'https://www.facebook.com/', type: 'facebook' },
+];
+const cta = 'Reach Out';
+---
+
+<!doctype html>
+<html lang='en' class='bg-black font-sans font-light text-white'>
+  <head>
+    <meta charset='UTF-8' />
+    <meta name='description' content={metaDescription} />
+    <meta name='viewport' content='width=device-width' />
+    <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
+    <meta name='generator' content={Astro.generator} />
+    <script
+      src='https://kit.fontawesome.com/d1b675ff4f.js'
+      crossorigin='anonymous'></script>
+    <script>
+      if (
+        localStorage.theme === 'dark' ||
+        (!('theme' in localStorage) &&
+          window.matchMedia('(prefers-color-scheme: dark)').matches)
+      ) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+      localStorage.theme = 'light';
+      localStorage.theme = 'dark';
+      localStorage.removeItem('theme');
+    </script>
+    <title>{title ? `${title} - ${websiteName}` : websiteName}</title>
+  </head>
+  <body>
+    <Header
+      title={websiteName}
+      navs={navs.filter((nav) => nav.link !== '/')}
+      cta={cta}
+      client:idle
+    />
+    <main>
+      <slot />
+    </main>
+    <Footer
+      email={email}
+      copyright=`${websiteName} 2024`
+      navs={navs}
+      phone={phone}
+      socials={socials}
+      cta={cta}
+    />
+  </body>
+</html>
+
+<!-- custom animation keyframes and other global stuffs -->
+<style is:global>
+  @tailwind base;
+
+  @layer base {
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(20vh);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-in-up {
+      animation: fadeInUp 0.75s ease-out;
+    }
+    .card-zoom {
+      @apply relative overflow-hidden;
+    }
+    .card-zoom-image {
+      @apply absolute h-full w-full transform bg-cover bg-center transition-all duration-500 ease-in-out;
+    }
+    .card-zoom-text {
+      @apply absolute transform text-gray-50 transition-all duration-500 ease-in-out;
+    }
+    .zoom-in {
+      @apply scale-[1.25];
+    }
+  }
+
+  a {
+    @apply transition-transform duration-300 ease-in-out;
+  }
+
+  a:hover {
+    @apply scale-110;
+  }
+</style>

@@ -1,0 +1,25 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ContactPage from '../components/ContactPage';
+
+const phone = '918-298-6303';
+const name = 'ethan Wakeford';
+const address = '';
+const email = 'ethanwakeford@gmail.com';
+const socials = [
+  { link: 'https://www.instagram.com/', type: 'instagram' },
+  { link: 'https://www.facebook.com/', type: 'facebook' },
+];
+---
+
+<Layout metaDescription='contact us' title='Contact Us'>
+  <ContactPage
+    phone={phone}
+    address={address}
+    names={name}
+    email={email}
+    subHeading='START A PROJECT, SCHEDULE A TALK, OR JUST SAY HELLO'
+    title='LETS WORK TOGETHER'
+    socials={socials}
+  />
+</Layout>
