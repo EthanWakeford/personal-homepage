@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import type { DocumentData } from 'firebase/firestore';
-import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
+import { getFirestore, collection, getDocs } from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
