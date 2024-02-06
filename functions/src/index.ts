@@ -12,7 +12,7 @@ const WORKFLOW_ID = defineString('WORKFLOW_ID');
 // const SERVICE_ACCOUNT_EMAIL = defineString('SERVICE_ACCOUNT_EMAIL');
 const PROJECT_ID = defineString('PROJECT_ID');
 const QUEUE_NAME = defineString('QUEUE_NAME');
-const LOCATION = 'us-central';
+const LOCATION = 'us-central1';
 // const serviceAccountEmail = 'PROJECT_ID@appspot.gserviceaccount.com';
 // const url =
 // 'https://europe-west1-PROJECT_ID.cloudfunctions.net/requestQueuedUpdateBackend';
