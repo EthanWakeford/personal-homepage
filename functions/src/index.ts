@@ -116,7 +116,7 @@ export const buildOnWritten = onDocumentWritten('test/**', async (event) => {
   // axios
 
   // run in 5 minutes from now
-  const toRunTimestamp = thisTimestamp + 5 * 60 * 1000;
+  const toRunTimestamp = thisTimestamp + 1 * 60 * 1000;
 
   // const response = await
   createBuildTask(toRunTimestamp)
