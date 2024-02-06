@@ -1,7 +1,7 @@
 import { onDocumentWritten } from 'firebase-functions/v2/firestore';
 import { initializeApp } from 'firebase-admin/app';
 import { onRequest } from 'firebase-functions/v2/https';
-import { info, error } from 'firebase-functions/logger';
+import { info } from 'firebase-functions/logger';
 import { defineString } from 'firebase-functions/params';
 import axios from 'axios';
 
@@ -38,7 +38,7 @@ export const buildOnWritten = onDocumentWritten('test/**', async (event) => {
       info('Response:', response.data);
     })
     .catch((error) => {
-      error('Error Caught:', error.message);
+      info('Error Caught:', error.message);
     });
 });
 
