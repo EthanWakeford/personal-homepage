@@ -1,7 +1,7 @@
 import { onDocumentWritten } from 'firebase-functions/v2/firestore';
 import { initializeApp } from 'firebase-admin/app';
 import { onRequest } from 'firebase-functions/v2/https';
-import { debug } from 'firebase-functions/logger';
+import { info, error } from 'firebase-functions/logger';
 import { defineString } from 'firebase-functions/params';
 import axios from 'axios';
 
@@ -16,7 +16,6 @@ const location = 'us-central1';
 initializeApp();
 
 export const buildMe = onRequest(async (req, res) => {
-  debug('hi im building');
   const currentDate = new Date();
   const thisTimestamp = Math.floor(currentDate.getTime() / 1000);
 
@@ -28,30 +27,24 @@ export const buildMe = onRequest(async (req, res) => {
       res.send('success');
     })
     .catch((error: any) => {
-      debug('error caught');
       res.send(error);
     });
 });
 
 export const buildOnWritten = onDocumentWritten('test/**', async (event) => {
-  debug('hi document was written');
-
   axios
     .get(BUILD_URL.value())
     .then((response) => {
-      debug('Response:', response.data);
+      info('Response:', response.data);
     })
     .catch((error) => {
-      debug('Error Caught:', error.message);
+      error('Error Caught:', error.message);
     });
 });
 
 const createBuildTask = async (toRunTimestamp: number) => {
   const { v2beta3 } = await import('@google-cloud/tasks');
-
   const tasksClient = new v2beta3.CloudTasksClient();
-
-  debug('building task');
 
   const getTasksRequest = {
     parent: `projects/${PROJECT_ID.value()}/locations/${location}/queues/${QUEUE_NAME.value()}`,
@@ -59,25 +52,22 @@ const createBuildTask = async (toRunTimestamp: number) => {
 
   const [tasklist] = await tasksClient.listTasks(getTasksRequest);
 
-  debug('got task list');
-
   // quit if task list isnt empty
   if (tasklist.length > 0) {
-    debug('build is already queued');
+    info('build is already queued');
     return;
   }
-  debug('queue is empty');
-
-  const body = {
-    ref: 'main',
-    inputs: {},
-  };
 
   const formattedParent = tasksClient.queuePath(
     PROJECT_ID.value(),
     location,
     QUEUE_NAME.value()
   );
+
+  const body = {
+    ref: 'main',
+    inputs: {},
+  };
 
   const task = {
     scheduleTime: {
@@ -100,7 +90,9 @@ const createBuildTask = async (toRunTimestamp: number) => {
     parent: formattedParent,
     task: task,
   };
+
   const [response] = await tasksClient.createTask(request);
-  debug('task added');
+
+  info('task added');
   return response;
 };
