@@ -45,17 +45,13 @@ export const buildOnWritten = onDocumentWritten('test/**', async (event) => {
 const createBuildTask = async (toRunTimestamp: number) => {
   const { v2beta3 } = await import('@google-cloud/tasks');
   const tasksClient = new v2beta3.CloudTasksClient();
-  const formattedParent = tasksClient.queuePath(
+  const parent = tasksClient.queuePath(
     PROJECT_ID.value(),
     location,
     QUEUE_NAME.value()
   );
 
-  const getTasksRequest = {
-    parent: formattedParent,
-  };
-
-  const [tasklist] = await tasksClient.listTasks(getTasksRequest);
+  const [tasklist] = await tasksClient.listTasks({ parent });
 
   if (tasklist.length > 0) {
     info('task debounced');
@@ -89,12 +85,7 @@ const createBuildTask = async (toRunTimestamp: number) => {
     },
   };
 
-  const request = {
-    parent: formattedParent,
-    task,
-  };
-
-  const [response] = await tasksClient.createTask(request);
+  const [response] = await tasksClient.createTask({ parent, task });
 
   info('task added');
   return response;
