@@ -1,16 +1,66 @@
-import axios, { AxiosResponse } from 'axios';
+// import axios, { AxiosResponse } from 'axios';
 import { onDocumentWritten } from 'firebase-functions/v2/firestore';
 import { initializeApp } from 'firebase-admin/app';
 import { debug } from 'firebase-functions/logger';
 import * as admin from 'firebase-admin';
-const { defineString } = require('firebase-functions/params');
+import { defineString } from 'firebase-functions/params';
+import { CloudTasksClient } from '@google-cloud/tasks';
 
 const GITHUB_REPO = defineString('GITHUB_REPO');
 const GITHUB_TOKEN = defineString('GITHUB_TOKEN');
 const WORKFLOW_ID = defineString('WORKFLOW_ID');
+const SERVICE_ACCOUNT_EMAIL = defineString('SERVICE_ACCOUNT_EMAIL');
+const PROJECT_ID = defineString('PROJECT_ID');
+const QUEUE_NAME = defineString('QUEUE_NAME');
+const LOCATION = 'us-central';
+// const serviceAccountEmail = 'PROJECT_ID@appspot.gserviceaccount.com';
+// const url =
+// 'https://europe-west1-PROJECT_ID.cloudfunctions.net/requestQueuedUpdateBackend';
 
 initializeApp();
 const db = admin.firestore();
+
+const createBuildTask = async (toRunTimestamp: number) => {
+  const tasksClient = new CloudTasksClient();
+
+  const body = {
+    ref: 'main',
+    inputs: {},
+  };
+
+  const formattedParent = tasksClient.queuePath(
+    PROJECT_ID.value(),
+    LOCATION,
+    QUEUE_NAME.value()
+  );
+
+  const task = {
+    scheduleTime: {
+      seconds: toRunTimestamp,
+    },
+    httpRequest: {
+      httpMethod: 'POST' as const,
+      url: `https://api.github.com/repos/${GITHUB_REPO.value()}/actions/workflows/${WORKFLOW_ID.value()}/dispatches`,
+      body: Buffer.from(JSON.stringify(body)).toString('base64'),
+      headers: {
+        Accept: 'application/vnd.github+json',
+        Authorization: `Bearer ${GITHUB_TOKEN.value()}`,
+        'X-GitHub-Api-Version': '2022-11-28',
+        'Content-Type': 'application/json',
+      },
+      oidcToken: {
+        serviceAccountEmail: SERVICE_ACCOUNT_EMAIL.value(),
+      },
+    },
+  };
+
+  const request = {
+    parent: formattedParent,
+    task: task,
+  };
+  const [response] = await tasksClient.createTask(request);
+  return response;
+};
 
 export const buildOnWritten = onDocumentWritten('test/**', async (event) => {
   debug(GITHUB_REPO.value());
@@ -49,23 +99,28 @@ export const buildOnWritten = onDocumentWritten('test/**', async (event) => {
   debug('wait finished');
   // send http request to github actions
 
-  const apiUrl = `https://api.github.com/repos/${GITHUB_REPO.value()}/actions/workflows/${WORKFLOW_ID.value()}/dispatches`;
+  // const apiUrl = `https://api.github.com/repos/${GITHUB_REPO.value()}/actions/workflows/${WORKFLOW_ID.value()}/dispatches`;
 
-  const headers = {
-    Accept: 'application/vnd.github+json',
-    Authorization: `Bearer ${GITHUB_TOKEN.value()}`,
-    'X-GitHub-Api-Version': '2022-11-28',
-    'Content-Type': 'application/json',
-  };
+  // const headers = {
+  //   Accept: 'application/vnd.github+json',
+  //   Authorization: `Bearer ${GITHUB_TOKEN.value()}`,
+  //   'X-GitHub-Api-Version': '2022-11-28',
+  //   'Content-Type': 'application/json',
+  // };
 
-  const body = {
-    ref: 'main',
-    inputs: {},
-  };
+  // const body = {
+  //   ref: 'main',
+  //   inputs: {},
+  // };
 
-  axios
-    .post(apiUrl, body, { headers })
-    .then((response: AxiosResponse) => debug('success', response.data))
+  // axios
+
+  // run in 5 minutes from now
+  const toRunTimestamp = thisTimestamp + 5 * 60 * 1000;
+
+  // const response = await
+  createBuildTask(toRunTimestamp)
+    .then((response) => debug('success', response.scheduleTime))
     .catch((error: any) => debug('Error:', error));
 });
 
