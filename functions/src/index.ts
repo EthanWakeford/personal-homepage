@@ -9,7 +9,7 @@ import { CloudTasksClient } from '@google-cloud/tasks';
 const GITHUB_REPO = defineString('GITHUB_REPO');
 const GITHUB_TOKEN = defineString('GITHUB_TOKEN');
 const WORKFLOW_ID = defineString('WORKFLOW_ID');
-const SERVICE_ACCOUNT_EMAIL = defineString('SERVICE_ACCOUNT_EMAIL');
+// const SERVICE_ACCOUNT_EMAIL = defineString('SERVICE_ACCOUNT_EMAIL');
 const PROJECT_ID = defineString('PROJECT_ID');
 const QUEUE_NAME = defineString('QUEUE_NAME');
 const LOCATION = 'us-central';
@@ -48,9 +48,9 @@ const createBuildTask = async (toRunTimestamp: number) => {
         'X-GitHub-Api-Version': '2022-11-28',
         'Content-Type': 'application/json',
       },
-      oidcToken: {
-        serviceAccountEmail: SERVICE_ACCOUNT_EMAIL.value(),
-      },
+      // oidcToken: {
+      // serviceAccountEmail: SERVICE_ACCOUNT_EMAIL.value(),
+      // },
     },
   };
 
