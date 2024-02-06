@@ -45,24 +45,27 @@ export const buildOnWritten = onDocumentWritten('test/**', async (event) => {
 const createBuildTask = async (toRunTimestamp: number) => {
   const { v2beta3 } = await import('@google-cloud/tasks');
   const tasksClient = new v2beta3.CloudTasksClient();
-
-  const getTasksRequest = {
-    parent: `projects/${PROJECT_ID.value()}/locations/${location}/queues/${QUEUE_NAME.value()}`,
-  };
-
-  const [tasklist] = await tasksClient.listTasks(getTasksRequest);
-
-  // quit if task list isnt empty
-  if (tasklist.length > 0) {
-    info('build is already queued');
-    return;
-  }
-
   const formattedParent = tasksClient.queuePath(
     PROJECT_ID.value(),
     location,
     QUEUE_NAME.value()
   );
+
+  const getTasksRequest = {
+    parent: formattedParent,
+  };
+
+  const [tasklist] = await tasksClient.listTasks(getTasksRequest);
+
+  if (tasklist.length > 0) {
+    info('task debounced');
+
+    // clear to debounce the task
+    for (const task of tasklist) {
+      // shitty code to catch error when task gets deleted more than once
+      tasksClient.deleteTask(task).catch((err) => info('error deleting', err));
+    }
+  }
 
   const body = {
     ref: 'main',
@@ -88,7 +91,7 @@ const createBuildTask = async (toRunTimestamp: number) => {
 
   const request = {
     parent: formattedParent,
-    task: task,
+    task,
   };
 
   const [response] = await tasksClient.createTask(request);
