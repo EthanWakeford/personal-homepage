@@ -12,23 +12,27 @@ const GITHUB_TOKEN = defineString('GITHUB_TOKEN');
 const WORKFLOW_ID = defineString('WORKFLOW_ID');
 const PROJECT_ID = defineString('PROJECT_ID');
 const QUEUE_NAME = defineString('QUEUE_NAME');
-const LOCATION = 'us-central1';
+const location = 'us-central1';
 
-debug('does this run immediately????');
 initializeApp();
 // const db = admin.firestore();
 const tasksClient = new v2beta3.CloudTasksClient();
 
 // export const buildOnWritten = onDocumentWritten('test/**', async (event) => {
-export const buildMe = onRequest(async () => {
+export const buildMe = onRequest(async (req, res) => {
   debug('hi im running');
   const currentDate = new Date();
   const thisTimestamp = Math.floor(currentDate.getTime() / 1000);
   const toRunTimestamp = thisTimestamp + 1 * 60;
 
-  createBuildTask(toRunTimestamp)
-    .then((response) => debug('success', response.scheduleTime))
-    .catch((error: any) => debug('Error:', error));
+  await createBuildTask(toRunTimestamp)
+    .then(() => {
+      res.send('success');
+    })
+    .catch((error: any) => {
+      debug('error caught');
+      res.send(error);
+    });
 });
 
 export const buildOnWritten = onDocumentWritten('test/**', async (event) => {
@@ -67,7 +71,7 @@ export const buildOnWritten = onDocumentWritten('test/**', async (event) => {
   const toRunTimestamp = thisTimestamp + 1 * 60;
 
   createBuildTask(toRunTimestamp)
-    .then((response) => debug('success', response.scheduleTime))
+    .then(() => debug('success'))
     .catch((error: any) => debug('Error:', error));
   // debug(tasksClient);
 });
@@ -75,20 +79,32 @@ export const buildOnWritten = onDocumentWritten('test/**', async (event) => {
 const createBuildTask = async (toRunTimestamp: number) => {
   debug('building task');
 
-  const updateQueueRequest = {
-    queue: {
-      name: `projects/${PROJECT_ID}/locations/${LOCATION}/queues/${QUEUE_NAME}`,
-      rateLimits: {
-        maxBurstSize: 1,
-        maxTasksDispatchedPerSecond: 1,
-        maxConcurrentTasks: 1,
-      },
-    },
+  const getTasksRequest = {
+    parent: `projects/${PROJECT_ID.value()}/locations/${location}/queues/${QUEUE_NAME.value()}`,
   };
 
-  await tasksClient.updateQueue(updateQueueRequest);
+  const [tasklist] = await tasksClient.listTasks(getTasksRequest);
 
-  debug('queue updated');
+  debug('got task list');
+
+  // quit if task list isnt empty
+  if (tasklist.length > 0) return;
+  debug('queue is empty');
+
+  // const updateQueueRequest = {
+  //   queue: {
+  //     name: `projects/${PROJECT_ID.value()}/locations/${location}/queues/${QUEUE_NAME.value()}`,
+  //     rateLimits: {
+  //       maxBurstSize: 1,
+  //       maxTasksDispatchedPerSecond: 1,
+  //       maxConcurrentTasks: 1,
+  //     },
+  //   },
+  // };
+
+  // await tasksClient.updateQueue(updateQueueRequest);
+
+  // debug('queue updated');
 
   const body = {
     ref: 'main',
@@ -97,7 +113,7 @@ const createBuildTask = async (toRunTimestamp: number) => {
 
   const formattedParent = tasksClient.queuePath(
     PROJECT_ID.value(),
-    LOCATION,
+    location,
     QUEUE_NAME.value()
   );
 
