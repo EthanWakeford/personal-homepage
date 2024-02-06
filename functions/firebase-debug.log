@@ -1,0 +1,99 @@
+[debug] [2024-02-06T03:15:00.010Z] ----------------------------------------------------------------------
+[debug] [2024-02-06T03:15:00.012Z] Command:       /home/onslow/.nvm/versions/node/v20.3.0/bin/node /home/onslow/.nvm/versions/node/v20.3.0/bin/firebase deploy --only functions
+[debug] [2024-02-06T03:15:00.012Z] CLI Version:   13.0.0
+[debug] [2024-02-06T03:15:00.012Z] Platform:      linux
+[debug] [2024-02-06T03:15:00.013Z] Node Version:  v20.3.0
+[debug] [2024-02-06T03:15:00.013Z] Time:          Mon Feb 05 2024 21:15:00 GMT-0600 (Central Standard Time)
+[debug] [2024-02-06T03:15:00.013Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-02-06T03:15:00.081Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-02-06T03:15:00.081Z] > authorizing via signed-in user (ethanwakeford@gmail.com)
+[debug] [2024-02-06T03:15:00.081Z] [iam] checking project wakeford11901 for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]
+[debug] [2024-02-06T03:15:00.082Z] > refreshing access token with scopes: []
+[debug] [2024-02-06T03:15:00.084Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2024-02-06T03:15:00.084Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-02-06T03:15:00.360Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2024-02-06T03:15:00.360Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-02-06T03:15:00.366Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/wakeford11901:testIamPermissions [none]
+[debug] [2024-02-06T03:15:00.366Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/wakeford11901:testIamPermissions x-goog-quota-user=projects/wakeford11901
+[debug] [2024-02-06T03:15:00.367Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/wakeford11901:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2024-02-06T03:15:00.593Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/wakeford11901:testIamPermissions 200
+[debug] [2024-02-06T03:15:00.593Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/wakeford11901:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2024-02-06T03:15:00.593Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/wakeford11901/serviceAccounts/wakeford11901@appspot.gserviceaccount.com:testIamPermissions [none]
+[debug] [2024-02-06T03:15:00.593Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/wakeford11901/serviceAccounts/wakeford11901@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2024-02-06T03:15:00.815Z] <<< [apiv2][status] POST https://iam.googleapis.com/v1/projects/wakeford11901/serviceAccounts/wakeford11901@appspot.gserviceaccount.com:testIamPermissions 200
+[debug] [2024-02-06T03:15:00.815Z] <<< [apiv2][body] POST https://iam.googleapis.com/v1/projects/wakeford11901/serviceAccounts/wakeford11901@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[info] 
+[info] === Deploying to 'wakeford11901'...
+[info] 
+[info] i  deploying functions 
+[info] Running command: npm --prefix "$RESOURCE_DIR" run build
+[info] ✔  functions: Finished running predeploy script. 
+[debug] [2024-02-06T03:15:07.134Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/wakeford11901 [none]
+[debug] [2024-02-06T03:15:07.468Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/wakeford11901 200
+[debug] [2024-02-06T03:15:07.468Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/wakeford11901 {"projectId":"wakeford11901","projectNumber":"767736566927","displayName":"personal-homepage","name":"projects/wakeford11901","resources":{"hostingSite":"wakeford11901","storageBucket":"wakeford11901.appspot.com","locationId":"us-central"},"state":"ACTIVE","etag":"1_4b216c19-7cd1-4990-bacf-3c8f6773c93f"}
+[info] i  functions: preparing codebase default for deployment 
+[info] i  functions: ensuring required API cloudfunctions.googleapis.com is enabled... 
+[info] i  functions: ensuring required API cloudbuild.googleapis.com is enabled... 
+[info] i  artifactregistry: ensuring required API artifactregistry.googleapis.com is enabled... 
+[debug] [2024-02-06T03:15:07.470Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/wakeford11901/services/cloudfunctions.googleapis.com [none]
+[debug] [2024-02-06T03:15:07.470Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/wakeford11901/services/cloudfunctions.googleapis.com x-goog-quota-user=projects/wakeford11901
+[debug] [2024-02-06T03:15:07.471Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/wakeford11901/services/runtimeconfig.googleapis.com [none]
+[debug] [2024-02-06T03:15:07.471Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/wakeford11901/services/runtimeconfig.googleapis.com x-goog-quota-user=projects/wakeford11901
+[debug] [2024-02-06T03:15:07.472Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/wakeford11901/services/cloudbuild.googleapis.com [none]
+[debug] [2024-02-06T03:15:07.473Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/wakeford11901/services/cloudbuild.googleapis.com x-goog-quota-user=projects/wakeford11901
+[debug] [2024-02-06T03:15:07.474Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/wakeford11901/services/artifactregistry.googleapis.com [none]
+[debug] [2024-02-06T03:15:07.474Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/wakeford11901/services/artifactregistry.googleapis.com x-goog-quota-user=projects/wakeford11901
+[debug] [2024-02-06T03:15:07.814Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/wakeford11901/services/runtimeconfig.googleapis.com 200
+[debug] [2024-02-06T03:15:07.814Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/wakeford11901/services/runtimeconfig.googleapis.com [omitted]
+[debug] [2024-02-06T03:15:07.815Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/wakeford11901/services/cloudbuild.googleapis.com 200
+[debug] [2024-02-06T03:15:07.815Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/wakeford11901/services/cloudbuild.googleapis.com [omitted]
+[info] ✔  functions: required API cloudbuild.googleapis.com is enabled 
+[debug] [2024-02-06T03:15:07.816Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/wakeford11901/services/cloudfunctions.googleapis.com 200
+[debug] [2024-02-06T03:15:07.816Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/wakeford11901/services/cloudfunctions.googleapis.com [omitted]
+[info] ✔  functions: required API cloudfunctions.googleapis.com is enabled 
+[debug] [2024-02-06T03:15:07.817Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/wakeford11901/services/artifactregistry.googleapis.com 200
+[debug] [2024-02-06T03:15:07.817Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/wakeford11901/services/artifactregistry.googleapis.com [omitted]
+[info] ✔  artifactregistry: required API artifactregistry.googleapis.com is enabled 
+[debug] [2024-02-06T03:15:07.817Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/wakeford11901/adminSdkConfig [none]
+[debug] [2024-02-06T03:15:08.014Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/wakeford11901/adminSdkConfig 200
+[debug] [2024-02-06T03:15:08.014Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/wakeford11901/adminSdkConfig {"projectId":"wakeford11901","storageBucket":"wakeford11901.appspot.com","locationId":"us-central"}
+[debug] [2024-02-06T03:15:08.014Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/wakeford11901/configs [none]
+[debug] [2024-02-06T03:15:08.321Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/wakeford11901/configs 200
+[debug] [2024-02-06T03:15:08.322Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/wakeford11901/configs {}
+[debug] [2024-02-06T03:15:08.323Z] Validating nodejs source
+[debug] [2024-02-06T03:15:08.828Z] > [functions] package.json contents: {
+  "name": "functions",
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "serve": "npm run build && firebase emulators:start --only functions",
+    "shell": "npm run build && firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "18"
+  },
+  "main": "lib/index.js",
+  "dependencies": {
+    "@google-cloud/tasks": "^5.0.0",
+    "axios": "^1.6.7",
+    "firebase-admin": "^11.8.0",
+    "firebase-functions": "^4.3.1"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^3.1.0",
+    "typescript": "^4.9.0"
+  },
+  "private": true
+}
+[debug] [2024-02-06T03:15:08.828Z] Building nodejs source
+[info] i  functions: Loading and analyzing source code for codebase default to determine what to deploy 
+[debug] [2024-02-06T03:15:08.829Z] Could not find functions.yaml. Must use http discovery
+[debug] [2024-02-06T03:15:08.834Z] Found firebase-functions binary at '/home/onslow/personal-homepage/functions/node_modules/.bin/firebase-functions'
+[info] Serving at port 8380
+
+[debug] [2024-02-06T03:15:09.164Z] Got response from /__/functions.yaml {"endpoints":{"buildOnWritten":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"eventTrigger":{"eventType":"google.cloud.firestore.document.v1.written","eventFilters":{"database":"(default)","namespace":"(default)"},"eventFilterPathPatterns":{"document":"test/**"},"retry":false},"entryPoint":"buildOnWritten"}},"specVersion":"v1alpha1","requiredAPIs":[],"params":[{"name":"GITHUB_REPO","type":"string"},{"name":"GITHUB_TOKEN","type":"string"},{"name":"WORKFLOW_ID","type":"string"},{"name":"SERVICE_ACCOUNT_EMAIL","type":"string"},{"name":"PROJECT_ID","type":"string"},{"name":"QUEUE_NAME","type":"string"}]}
+[info] i  functions: Loaded environment variables from .env.wakeford11901. 
