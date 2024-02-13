@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 interface SidekickProps {
   welcomeText: string;
@@ -27,25 +27,16 @@ const Sidekick: React.FC<SidekickProps> = ({
 
   const getImageClasses = (index: number) => {
     let baseClasses =
-      'absolute top-0 w-full h-1/2vh bg-cover bg-center bg-no-repeat transition-all duration-1000 ease-in-out';
+      'absolute top-0 w-full h-full bg-cover bg-center transition-all duration-2000 ease-in-out';
     if (index === currentImageIndex) {
-      // Current image, sliding in and fading in
-      return `${baseClasses} transform translate-x-0 opacity-100`;
-    } else if (
-      index ===
-      (currentImageIndex - 1 + backgroundImages.length) %
-        backgroundImages.length
-    ) {
-      // Previous image, sliding out and fading out
-      return `${baseClasses} transform hidden opacity-50`;
+      return `${baseClasses} transform opacity-100`;
     } else {
-      // All other images, positioned offscreen to the right and hidden
-      return `${baseClasses} transform translate-x-full hidden opacity-0`;
+      return `${baseClasses} transform opacity-0`;
     }
   };
 
   return (
-    <div className='h-1/2vh relative overflow-auto'>
+    <div className='relative h-3/4vh overflow-auto'>
       {backgroundImages.map((image, index) => (
         <div
           key={image}
@@ -56,7 +47,7 @@ const Sidekick: React.FC<SidekickProps> = ({
       <div className='absolute bottom-0 z-10 px-4 pb-8 text-left lg:pb-16 lg:pl-16 lg:pr-64'>
         <div className='fade-in-up'>
           <h2 className='text-lg lg:text-2xl'>{welcomeText}</h2>
-          <h1 className='mt-12 text-3xl tracking-widest lg:mt-20 lg:text-5xl'>
+          <h1 className='mt-2 text-3xl tracking-widest lg:mt-6 lg:text-5xl'>
             {tagline}
           </h1>
         </div>

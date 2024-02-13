@@ -27,20 +27,11 @@ const Hero: React.FC<HeroProps> = ({
 
   const getImageClasses = (index: number) => {
     let baseClasses =
-      'absolute top-0 w-full h-full bg-cover bg-center transition-all duration-1000 ease-in-out';
+      'absolute top-0 w-full h-full bg-cover bg-center transition-all duration-2000 ease-in-out';
     if (index === currentImageIndex) {
-      // Current image, sliding in and fading in
-      return `${baseClasses} transform translate-x-0 opacity-100`;
-    } else if (
-      index ===
-      (currentImageIndex - 1 + backgroundImages.length) %
-        backgroundImages.length
-    ) {
-      // Previous image, sliding out and fading out
-      return `${baseClasses} transform hidden opacity-50`;
+      return `${baseClasses} transform opacity-100`;
     } else {
-      // All other images, positioned offscreen to the right and hidden
-      return `${baseClasses} transform translate-x-full hidden opacity-0`;
+      return `${baseClasses} transform opacity-0`;
     }
   };
 
