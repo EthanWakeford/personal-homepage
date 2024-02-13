@@ -3,14 +3,25 @@ import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero';
 import AboutCard from '../components/AboutCard';
 import TextImagecard from '../components/TextImageCard';
+import { getData } from '../firebase';
 
-import { getTestData } from '../firebase';
+export type Project = {
+  title: string;
+  project_type: 'project' | 'website';
+  description: string;
+  url_slug: string;
+  hero_picture: string;
+  tools: string;
+  dates: string;
+  project_url: string;
+  source_url: string;
+};
 
-const myData = await getTestData();
+const projectData: Project = await getData();
 
-const about = myData[0].about;
-const bgImage = myData[0].bgimage;
-const headShot = myData[0].headshot;
+// const about = myData[0].about;
+// const bgImage = myData[0].bgimage;
+// const headShot = myData[0].headshot;
 ---
 
 <Layout title='' metaDescription='this is my first astro page'>
