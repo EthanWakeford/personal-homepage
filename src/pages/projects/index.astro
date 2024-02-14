@@ -7,6 +7,7 @@ import { projects } from '../../firebase';
 
 const category = 'Projects';
 const backgroundImages = projects.map((doc) => doc.hero_picture);
+const myProjects = projects.filter((proj) => proj.project_type === 'project');
 ---
 
 <Layout metaDescription='Ethan Wakeford Projects' title='Projects'>
@@ -18,15 +19,17 @@ const backgroundImages = projects.map((doc) => doc.hero_picture);
     client:visible
   />
   {
-    projects.map((doc, index) => (
-      <TextImageCard
-        bodyText={doc.description}
-        imageAltText={doc.title}
-        imageLink={doc.hero_picture}
-        title={doc.title}
-        link={`/commercials/${doc.url_slug}`}
-        reversed={index % 2 === 0}
-      />
-    ))
+    myProjects
+      .reverse()
+      .map((doc, index) => (
+        <TextImageCard
+          bodyText={doc.description}
+          imageAltText={doc.title}
+          imageLink={doc.hero_picture}
+          title={doc.title}
+          link={`/${category.toLowerCase()}/${doc.url_slug}`}
+          reversed={index % 2 === 0}
+        />
+      ))
   }
 </Layout>

@@ -1,0 +1,85 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ProjectPageInfo from '../../components/ProjectPageInfo';
+import Sidekick from '../../components/Sidekick';
+// import PictureGallery from '../../components/PictureGallery';
+import GoBack from '../../components/GoBack';
+
+import { projects } from '../../firebase';
+
+// read from Firestore
+// turn all entries into possible static routes
+// take data and put it into props to use on webpage
+
+export async function getStaticPaths() {
+  //   const mydata = await getData('projects');
+  const myProjects = projects.filter((proj) => proj.project_type === 'project');
+
+  const staticPaths = myProjects.map((doc) => {
+    return {
+      params: { project: doc.url_slug }, // Use slug for URL param
+      props: {
+        date: doc.dates,
+        projectUrl: doc.project_url,
+        sourceUrl: doc.source_url,
+        title: doc.title,
+        category: doc.project_type,
+        slug: doc.url_slug,
+        headline: doc.title,
+        // subhead: doc.hero_section.subhead,
+        backgroundImage: doc.hero_picture,
+        description: doc.description,
+        // media: doc.project_content.project_media, // Assuming URLs or references to media
+        credits: doc.tools,
+        // videoAudioEmbed: doc.project_content.video_audio_embed,
+      },
+    };
+  });
+
+  // Return paths
+  return [...staticPaths];
+}
+
+// const { project } = Astro.params;
+const {
+  title,
+  category,
+  slug,
+  projectUrl,
+  sourceUrl,
+  headline,
+  //   subhead,
+  backgroundImage,
+  description,
+  date,
+  //   media, // This might need special handling depending on its structure
+  credits,
+  //   videoAudioEmbed,
+} = Astro.props;
+---
+
+<Layout metaDescription={description} title={title}>
+  <GoBack category={category} client:visible />
+  <Sidekick
+    tagline={headline}
+    welcomeText={'blah blah stuff stuff'}
+    backgroundImages={[backgroundImage]}
+    client:visible
+  />
+  <ProjectPageInfo
+    description={description}
+    title={title}
+    company='Your Company Name Here'
+    credits={Object.values(credits)}
+    date={date}
+    projectUrl={projectUrl}
+    sourceUrl={sourceUrl}
+  />
+  <!-- <PictureGallery
+    images={media.map((item: string) => ({
+      imageRef: item, // Assuming this directly references the image URL
+      title: title, // You might want to have unique titles per image if possible
+    }))}
+    client:load
+  /> -->
+</Layout>
