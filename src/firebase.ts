@@ -27,7 +27,7 @@ const getData = async (coll: string): Promise<DocumentData[]> => {
 
 export interface Project {
   title: string;
-  project_type: 'project' | 'website';
+  project_type: 'projects' | 'websites';
   description: string;
   url_slug: string;
   hero_picture: string;

@@ -7,7 +7,7 @@ import { projects } from '../../firebase';
 
 const category = 'Projects';
 const backgroundImages = projects.map((doc) => doc.hero_picture);
-const myProjects = projects.filter((proj) => proj.project_type === 'project');
+const myProjects = projects.filter((proj) => proj.project_type === 'projects');
 ---
 
 <Layout metaDescription='Ethan Wakeford Projects' title='Projects'>
