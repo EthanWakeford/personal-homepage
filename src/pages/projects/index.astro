@@ -1,5 +1,30 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import Sidekick from '../../components/Sidekick';
+import TextImageCard from '../../components/TextImageCard';
+
+import { projects } from '../../firebase';
+
+const category = 'Projects';
+const backgroundImages = projects.sort().map((doc) => doc.hero_picture);
 ---
 
-<Layout metaDescription='Ethan Wakeford Projects' title='Projects' />
+<Layout metaDescription='Ethan Wakeford Projects' title='Projects'>
+  <Sidekick
+    backgroundImages={backgroundImages}
+    tagline={category}
+    welcomeText='These are my coding projects I have worked on, either in school or not. The source code is available for each one.'
+  />
+  {
+    projects.map((doc, index) => (
+      <TextImageCard
+        bodyText={doc.description}
+        imageAltText={doc.title}
+        imageLink={doc.hero_picture}
+        title={doc.title}
+        link={`/commercials/${doc.url_slug}`}
+        reversed={index % 2 === 0}
+      />
+    ))
+  }
+</Layout>

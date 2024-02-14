@@ -25,7 +25,7 @@ const getData = async (coll: string): Promise<DocumentData[]> => {
   return data;
 };
 
-export interface Project extends DocumentData {
+export interface Project {
   title: string;
   project_type: 'project' | 'website';
   description: string;
@@ -37,7 +37,7 @@ export interface Project extends DocumentData {
   source_url: string;
 }
 
-export interface MyInfo extends DocumentData {
+export interface MyInfo {
   about: string;
   bgimage: string;
   headshot: string;
