@@ -22,11 +22,11 @@ const TextImagecard: React.FC<Props> = ({
       <img
         src={imageLink}
         alt={imageAltText}
-        className={`${reversed && 'lg:order-1'} from-dkbg1 box-border h-full w-full object-cover lg:col-span-2`}
+        className={`${reversed && 'lg:order-1'} from-dkbg1 box-border h-full w-full object-cover lg:object-cover lg:col-span-2`}
       />
-      <div className='flex flex-col justify-between bg-ltbg2 py-8  text-center text-black lg:col-span-1 lg:px-12 lg:py-24 dark:bg-dkbg1 dark:text-white hover:bg-ltbg2 dark:hover:bg-dkbg2 transition-all'>
+      <div className='flex flex-col px-4 justify-around bg-ltbg2 py-8 text-center text-black lg:col-span-1 lg:px-12 lg:py-8 dark:bg-dkbg1 dark:text-white hover:bg-ltbg2 dark:hover:bg-dkbg2 transition-all'>
         <h3 className='text-lg lg:text-5xl'>{title}</h3>
-        <p className='text-base lg:text-xl truncate max-h-10'>{bodyText}</p>
+        <p className='text-base lg:text-lg line-clamp-3'>{bodyText}</p>
         <a
           href={link}
           className='text-sm text-tertiary hover:text-accent underline underline-offset-4 transition-all  duration-300 lg:text-2xl'

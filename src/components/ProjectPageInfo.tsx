@@ -22,7 +22,7 @@ const ProjectPageInfo: React.FC<Props> = ({
       <div className='flex grid-cols-4 flex-col gap-16 lg:grid'>
         <p className='col-span-3 break-words'>{description}</p>
         <div className='col-span-1 flex flex-col gap-4 text-center text-lg lg:text-left'>
-          <h3 className=''>Credits</h3>
+          <h3 className=''>Tools</h3>
           <div className='flex flex-wrap justify-center gap-2 lg:justify-start'>
             <p className='text-base'>{credits}</p>
           </div>
