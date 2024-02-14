@@ -6,7 +6,7 @@ import TextImageCard from '../../components/TextImageCard';
 import { projects } from '../../firebase';
 
 const category = 'Projects';
-const backgroundImages = projects.sort().map((doc) => doc.hero_picture);
+const backgroundImages = projects.map((doc) => doc.hero_picture);
 ---
 
 <Layout metaDescription='Ethan Wakeford Projects' title='Projects'>
@@ -14,6 +14,8 @@ const backgroundImages = projects.sort().map((doc) => doc.hero_picture);
     backgroundImages={backgroundImages}
     tagline={category}
     welcomeText='These are my coding projects I have worked on, either in school or not. The source code is available for each one.'
+    slideTime={3000}
+    client:visible
   />
   {
     projects.map((doc, index) => (
