@@ -15,8 +15,8 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-export const getData = async (): Promise<DocumentData[]> => {
-  const testCol = collection(db, 'projects');
+const getData = async (coll: string): Promise<DocumentData[]> => {
+  const testCol = collection(db, coll);
 
   const snapshot = await getDocs(testCol);
 
@@ -24,3 +24,26 @@ export const getData = async (): Promise<DocumentData[]> => {
 
   return data;
 };
+
+export interface Project extends DocumentData {
+  title: string;
+  project_type: 'project' | 'website';
+  description: string;
+  url_slug: string;
+  hero_picture: string;
+  tools: string;
+  dates: string;
+  project_url: string;
+  source_url: string;
+}
+
+export interface MyInfo extends DocumentData {
+  about: string;
+  bgimage: string;
+  headshot: string;
+}
+
+const projects: Project[] = (await getData('projects')) as Project[];
+const myInfo: MyInfo[] = (await getData('myinfo')) as MyInfo[];
+
+export { projects, myInfo };
