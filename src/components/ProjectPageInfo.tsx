@@ -4,6 +4,8 @@ interface Props {
   date: string;
   company?: string;
   credits?: string[];
+  sourceUrl?: string;
+  projectUrl?: string;
 }
 
 const ProjectPageInfo: React.FC<Props> = ({
@@ -12,6 +14,8 @@ const ProjectPageInfo: React.FC<Props> = ({
   date,
   company,
   credits,
+  projectUrl,
+  sourceUrl,
 }) => {
   return (
     <div className='bg-dkbg2 px-8 py-16 lg:px-64 lg:py-32'>
@@ -20,10 +24,13 @@ const ProjectPageInfo: React.FC<Props> = ({
         <div className='col-span-1 flex flex-col gap-4 text-center text-lg lg:text-left'>
           <h3 className=''>Credits</h3>
           <div className='flex flex-wrap justify-center gap-2 lg:justify-start'>
-            {credits &&
-              credits.map((credit) => <p className='text-base'>{credit}</p>)}
+            <p className='text-base'>{credits}</p>
           </div>
           <h3 className='text-base'>{date}</h3>
+          <ul className='flex flex-col gap-4 text-accent underline'>
+            {projectUrl && <a href={projectUrl}>{title}</a>}
+            {sourceUrl && <a href={sourceUrl}>Source</a>}
+          </ul>
         </div>
       </div>
     </div>
