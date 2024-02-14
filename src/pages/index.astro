@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero';
 import AboutCard from '../components/AboutCard';
 import TextImagecard from '../components/TextImageCard';
+import ProjectGallery from '../components/ProjectGallery';
 import { myInfo, projects } from '../firebase';
 
 const about = myInfo[0].about;
@@ -31,5 +32,10 @@ const headShot = myInfo[0].headshot;
     link='/'
     linkText='click me'
     reversed={false}
+  />
+  <ProjectGallery
+    projects={projects}
+    galleryHeader='Explore our work'
+    client:idle
   />
 </Layout>
