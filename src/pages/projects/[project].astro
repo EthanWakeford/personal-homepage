@@ -13,7 +13,9 @@ import { projects } from '../../firebase';
 
 export async function getStaticPaths() {
   //   const mydata = await getData('projects');
-  const myProjects = projects.filter((proj) => proj.project_type === 'project');
+  const myProjects = projects.filter(
+    (proj) => proj.project_type === 'projects'
+  );
 
   const staticPaths = myProjects.map((doc) => {
     return {
