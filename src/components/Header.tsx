@@ -9,7 +9,7 @@ interface HeaderProps {
   cta: string;
 }
 
-const Header: React.FC<HeaderProps> = ({ title, navs }) => {
+const Header: React.FC<HeaderProps> = ({ title, navs, cta }) => {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -74,16 +74,16 @@ const Header: React.FC<HeaderProps> = ({ title, navs }) => {
             </a>
           ))}
           <a href='/contact' className=''>
-            <button className='my-2 mb-4 transform rounded-xl bg-tertiary px-4 py-2 text-base transition duration-300 ease-in-out hover:scale-110 hover:bg-accent'>
-              CONTACT US
+            <button className='my-2 mb-4 transform rounded-xl bg-other px-4 py-2 text-base transition duration-300 ease-in-out hover:scale-110 hover:bg-accent'>
+              {cta}
             </button>
           </a>
         </nav>
       </div>
       <div className='hidden lg:col-span-1 lg:block'>
         <a href='/contact' className=''>
-          <button className='transform rounded-xl bg-tertiary px-4 py-2 text-lg transition duration-300 ease-in-out hover:scale-110 hover:bg-accent'>
-            CONTACT US
+          <button className='transform rounded-xl bg-other px-4 py-2 text-lg transition duration-300 ease-in-out hover:scale-110 hover:bg-accent'>
+            {cta}
           </button>
         </a>
       </div>

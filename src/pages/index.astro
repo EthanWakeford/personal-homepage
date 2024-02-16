@@ -13,29 +13,28 @@ const headShot = myInfo[0].headshot;
 
 <Layout title='' metaDescription='this is my first astro page'>
   <Hero
-    welcomeText='Ethan Wakeford'
     tagline={about}
     backgroundImages={[bgImage]}
     slideTime={5000}
     client:load
   />
   <AboutCard
-    aboutTitle='this is where I make a title about some stuff that we do'
-    aboutBody='its super cool'
-    linkText='Click here to find out'
+    aboutTitle='Full Stack Engineer'
+    aboutBody='I am a software developer who recently Graduated from Holberton/Atlas Tulsa. I love all things software. I have the most experience in web dev but I am open to anything engineering'
+    linkText='My Resume'
   />
   <TextImagecard
-    title='title'
-    bodyText='blah blah'
-    imageAltText='cool picture'
+    title="I'm looking for a job!"
+    bodyText='Feel free to reach out or'
+    imageAltText='This is me'
     imageLink={headShot}
-    link='/'
-    linkText='click me'
+    link='https://github.com/EthanWakeford'
+    linkText='Look at my Github'
     reversed={false}
   />
   <ProjectGallery
     projects={projects}
-    galleryHeader='Explore our work'
+    galleryHeader="Here's what I've done"
     client:idle
   />
 </Layout>

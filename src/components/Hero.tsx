@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 interface HeroProps {
-  welcomeText: string;
+  welcomeText?: string;
   tagline: string;
   backgroundImages: string[];
   slideTime?: number;
@@ -46,7 +46,9 @@ const Hero: React.FC<HeroProps> = ({
       ))}
       <div className='absolute bottom-0 z-10 px-4 pb-16 text-left lg:pb-32 lg:pl-16 lg:pr-64'>
         <div className='fade-in-up'>
-          <h2 className='text-lg lg:text-2xl'>{welcomeText}</h2>
+          {welcomeText && (
+            <h2 className='text-lg lg:text-2xl'>{welcomeText}</h2>
+          )}
           <h1 className='mt-12 text-3xl tracking-widest lg:mt-20 lg:text-5xl'>
             {tagline}
           </h1>
