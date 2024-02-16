@@ -20,14 +20,14 @@ const myProjects = projects.filter((proj) => proj.project_type === 'projects');
   />
   {
     myProjects
-      .reverse()
-      .map((doc, index) => (
+      .sort((a, b) => b.priority_weight - a.priority_weight)
+      .map((project, index) => (
         <TextImageCard
-          bodyText={doc.description}
-          imageAltText={doc.title}
-          imageLink={doc.hero_picture}
-          title={doc.title}
-          link={`/${category.toLowerCase()}/${doc.url_slug}`}
+          bodyText={project.description}
+          imageAltText={project.title}
+          imageLink={project.hero_picture}
+          title={project.title}
+          link={`/${category.toLowerCase()}/${project.url_slug}`}
           reversed={index % 2 === 0}
         />
       ))

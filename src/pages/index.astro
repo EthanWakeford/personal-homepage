@@ -33,7 +33,7 @@ const headShot = myInfo[0].headshot;
     reversed={false}
   />
   <ProjectGallery
-    projects={projects}
+    projects={projects.sort((a, b) => b.priority_weight - a.priority_weight)}
     galleryHeader="Here's what I've done"
     client:idle
   />
