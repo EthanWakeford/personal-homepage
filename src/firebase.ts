@@ -35,6 +35,7 @@ export interface Project {
   dates: string;
   project_url: string;
   source_url: string;
+  priority_weight: number;
 }
 
 export interface MyInfo {
