@@ -12,7 +12,7 @@ const ProjectGallery: React.FC<ProjectGalleryProps> = ({
   return (
     <>
       <div className='mb-10'>
-        <h2 className='large:py-10 bg-ltbg2 py-4 text-center text-4xl text-black dark:bg-dkbg2 dark:text-white'>
+        <h2 className='large:py-10 py-4 text-center text-4xl  bg-dkbg2 text-white'>
           {galleryHeader}
         </h2>
         <ul className='align-center grid grid-cols-1 text-center hover:cursor-pointer group-hover:shadow-inner sm:grid-cols-2'>
@@ -31,7 +31,7 @@ const ProjectGallery: React.FC<ProjectGalleryProps> = ({
                     backgroundImage: `url(${project.hero_picture})`,
                   }}
                 ></div>
-                <span className='z-50 rounded bg-white bg-opacity-50 p-2 text-xl text-black transition-all duration-300 ease-in-out hover:bg-opacity-100 group-hover:opacity-100 lg:opacity-0 dark:bg-black dark:text-white'>
+                <span className='z-50 rounded bg-opacity-50 p-2 text-xl transition-all duration-300 ease-in-out hover:bg-opacity-100 group-hover:opacity-100 lg:opacity-0 bg-black text-white'>
                   {project.title}
                 </span>
               </a>

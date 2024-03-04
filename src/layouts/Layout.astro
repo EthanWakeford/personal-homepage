@@ -36,18 +36,18 @@ const cta = 'Reach Out';
       src='https://kit.fontawesome.com/d1b675ff4f.js'
       crossorigin='anonymous'></script>
     <script>
-      if (
-        localStorage.theme === 'dark' ||
-        (!('theme' in localStorage) &&
-          window.matchMedia('(prefers-color-scheme: dark)').matches)
-      ) {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-      }
-      localStorage.theme = 'light';
-      localStorage.theme = 'dark';
-      localStorage.removeItem('theme');
+      // if (
+      //   localStorage.theme === 'dark' ||
+      //   (!('theme' in localStorage) &&
+      //     window.matchMedia('(prefers-color-scheme: dark)').matches)
+      // ) {
+      document.documentElement.classList.add('dark');
+      // } else {
+      //   document.documentElement.classList.remove('dark');
+      // }
+      // localStorage.theme = 'light';
+      // localStorage.theme = 'dark';
+      // localStorage.removeItem('theme');
     </script>
     <title>{title ? `${title} - ${websiteName}` : websiteName}</title>
   </head>
