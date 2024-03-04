@@ -35,17 +35,17 @@ const Header: React.FC<HeaderProps> = ({ title, navs, cta }) => {
 
   return (
     <header
-      className={`fixed top-0 z-40 flex w-screen justify-between px-4 py-2 text-center align-middle shadow-2xl transition-all duration-1000 lg:grid lg:grid-cols-5 lg:px-0 lg:py-2 ${isScrolled ? 'bg-opacity-100' : 'bg-opacity-100 dark:bg-opacity-100'} bg-ltbg1 lg:hover:bg-opacity-100 dark:bg-dkbg1`}
+      className={`fixed top-0 z-40 flex w-screen justify-between px-4 py-2 text-center align-middle shadow-2xl transition-all duration-1000 lg:grid lg:grid-cols-5 lg:px-0 lg:py-2 ${isScrolled ? 'bg-opacity-100' : 'bg-opacity-100'} lg:hover:bg-opacity-100 bg-dkbg1`}
     >
       <div className='items-center justify-center align-middle lg:col-span-1 lg:flex'>
-        <h2 className='text-center text-2xl text-black transition-all duration-300 hover:text-accent dark:text-white'>
+        <h2 className='text-center text-2xl  transition-all duration-300 hover:text-accent text-white'>
           <a href='/'>{title}</a>
         </h2>
       </div>
       <nav className='hidden items-center justify-center gap-16 align-middle lg:col-span-3 lg:flex'>
         {navs.map((nav) => (
           <a
-            className='text-bold text-base text-black transition duration-300 ease-in-out hover:text-accent dark:text-white'
+            className='text-bold text-base transition duration-300 ease-in-out hover:text-accent text-white'
             href={`${nav.link}`}
             key={nav.name}
           >
@@ -55,7 +55,7 @@ const Header: React.FC<HeaderProps> = ({ title, navs, cta }) => {
       </nav>
       <div
         onClick={toggleNav}
-        className={`z-50 flex w-10 cursor-pointer items-center justify-center text-2xl text-black transition-transform duration-300 lg:hidden dark:text-white ${isNavOpen ? 'rotate-180 opacity-100' : 'rotate-0 opacity-50'}`}
+        className={`z-50 flex w-10 cursor-pointer items-center justify-center text-2xl transition-transform duration-300 lg:hidden text-white ${isNavOpen ? 'rotate-180 opacity-100' : 'rotate-0 opacity-50'}`}
       >
         {isNavOpen ? <Icon icon={closeIcon} /> : <Icon icon={menuIcon} />}
       </div>
@@ -63,12 +63,12 @@ const Header: React.FC<HeaderProps> = ({ title, navs, cta }) => {
       <div
         className={`absolute left-0 top-full z-50 w-full transform bg-white shadow-md lg:hidden ${isNavOpen ? 'scale-y-100' : 'scale-y-0'} origin-top transition-transform duration-300 ease-in-out`}
       >
-        <nav className='flex flex-col dark:bg-dkbg1'>
+        <nav className='flex flex-col bg-dkbg1'>
           {navs.map((nav, index) => (
             <a
               key={index}
               href={`${nav.link}`}
-              className='px-6 py-4 text-base text-black dark:bg-dkbg1 dark:text-white'
+              className='px-6 py-4 text-base  bg-dkbg1 text-white'
             >
               {nav.name}
             </a>

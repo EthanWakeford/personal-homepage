@@ -18,7 +18,7 @@ const Footer: React.FC<Props> = ({
   cta,
 }) => {
   return (
-    <footer className='pb-8 pt-16 text-center lg:px-48 bg-ltbg1 dark:bg-dkbg1 text-black dark:text-white'>
+    <footer className='pb-8 pt-16 text-center lg:px-48  bg-dkbg1  text-white'>
       <div className='flex flex-col items-center justify-evenly lg:flex-row lg:justify-between'>
         <div className='hidden lg:block'>
           {address && <p className='text-left'>{address}</p>}
